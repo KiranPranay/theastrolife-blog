@@ -1,19 +1,23 @@
 name: Deploy Astro to GitHub Pages
 
+# Give the Actions token permission to push commits
+permissions:
+  contents: write    # allow pushes/pulls to the repo
+  pages: write       # if you’re also using GitHub Pages api
+  id-token: write    # only needed if you’re calling OIDC
+
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
         with:
-          version: 10
+          persist-credentials: false   # important so it uses the GITHUB_TOKEN you config below
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -32,4 +36,5 @@ jobs:
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: dist
+          publish_dir: ./dist
+          publish_branch: gh-pages
