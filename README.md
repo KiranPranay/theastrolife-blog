@@ -1,68 +1,147 @@
-# Astro Starter Kit: Blog
+# TheAstroLife
 
-```sh
-pnpm create astro@latest -- --template blog
+> A fast, modern, and extensible Astro-powered blog platform for skateboard enthusiasts.
+
+**TheAstroLife** is a static site built with [Astro](https://astro.build/) that showcases skateboard tips, tutorials, and videos. It features MDX content, RSS feed generation, sitemap support, and an easy-to-extend component-based architecture—perfect for anyone looking to run a performance-first, content-driven site.
+
+---
+
+## 🚀 Key Features
+
+* **Astro v5+**: Blazing-fast static site generation with partial hydration.
+* **MDX Support**: Write posts in Markdown with embedded React/Vue/Svelte components.
+* **RSS Feed**: Automatically generate `rss.xml` for subscribers.
+* **Sitemap**: SEO-friendly `sitemap.xml` integration.
+* **Responsive Layout**: Sidebar navigation, hero images, and video embeds.
+* **Global Styling**: Centralized `global.css` for utility and component classes.
+* **Video.js Integration**: Built-in support for video playback via CDN scripts.
+* **GitHub Pages Deployment**: One-command deploy via `gh-pages` or GitHub Actions.
+
+---
+
+## 🛠️ Prerequisites
+
+* **Node.js** v18 or later
+* **pnpm** (recommended) or npm/yarn
+* **Git** for version control
+
+---
+
+## 📦 Installation & Development
+
+Clone the repository and install dependencies:
+
+```bash
+git clone https://github.com/RES/theastrolife.git
+cd theastrolife
+pnpm install
 ```
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/blog)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/blog)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/blog/devcontainer.json)
+Run the development server:
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+```bash
+pnpm dev
+```
 
-![blog](https://github.com/withastro/astro/assets/2244813/ff10799f-a816-4703-b967-c78997e8323d)
+Open your browser at `http://localhost:3000` to preview live changes.
 
-Features:
+---
 
-- ✅ Minimal styling (make it your own!)
-- ✅ 100/100 Lighthouse performance
-- ✅ SEO-friendly with canonical URLs and OpenGraph data
-- ✅ Sitemap support
-- ✅ RSS Feed support
-- ✅ Markdown & MDX support
+## 🏗️ Build & Preview
 
-## 🚀 Project Structure
+Build the static site for production:
 
-Inside of your Astro project, you'll see the following folders and files:
+```bash
+pnpm build
+```
 
-```text
-├── public/
+Preview the production build locally:
+
+```bash
+pnpm preview
+```
+
+---
+
+## 📡 Deployment
+
+### GitHub Pages (branch-based)
+
+1. Ensure `astro.config.mjs` has the correct `base` and `site` values:
+
+   ```js
+   export default defineConfig({
+     site: 'https://<USERNAME>.github.io/theastrolife/',
+     base: '/theastrolife/',
+     integrations: [/* ... */]
+   });
+   ```
+2. Run the deploy script:
+
+   ```bash
+   pnpm run deploy
+   ```
+3. In your GitHub repository settings, set Pages source to the `gh-pages` branch (root).
+
+### GitHub Actions (CI/CD)
+
+An example workflow in `.github/workflows/deploy.yml` is included. On each push to `main`, it builds the site and updates `gh-pages` automatically.
+
+---
+
+## 🧱 Project Structure
+
+```
+├── public/             # Static assets (favicon, script.js, style.css)
 ├── src/
-│   ├── components/
-│   ├── content/
-│   ├── layouts/
-│   └── pages/
-├── astro.config.mjs
-├── README.md
-├── package.json
-└── tsconfig.json
+│   ├── components/     # Reusable UI components
+│   ├── layouts/        # Page layouts (e.g. BlogPostLayout.astro)
+│   ├── pages/          # Route-driven pages & MDX posts
+│   └── styles/         # global.css and other styles
+├── astro.config.mjs    # Astro configuration (integrations, base path)
+├── package.json        # NPM scripts & dependencies
+└── README.md           # This file
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+---
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+## ✍️ Writing Posts
 
-The `src/content/` directory contains "collections" of related Markdown and MDX documents. Use `getCollection()` to retrieve posts from `src/content/blog/`, and type-check your frontmatter using an optional schema. See [Astro's Content Collections docs](https://docs.astro.build/en/guides/content-collections/) to learn more.
+1. Create a new `.mdx` file under `src/pages/posts/`, e.g. `2025-05-16-sample-post.mdx`.
+2. Add frontmatter at the top:
 
-Any static assets, like images, can be placed in the `public/` directory.
+   ```yaml
+   ---
+   title: "Your Post Title"
+   pubDate: "2025-05-16"
+   updatedDate: "2025-05-17"  # optional
+   heroImage: "/images/your-hero.jpg"
+   authorName: "Your Name"
+   authorImage: "/images/you.jpg"
+   ---
+   ```
+3. Write your content in Markdown/JSX below the frontmatter.
 
-## 🧞 Commands
+The `BlogPostLayout.astro` will automatically render the dates, hero image, and author info.
 
-All commands are run from the root of the project, from a terminal:
+---
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
+## 🤝 Contributing
 
-## 👀 Want to learn more?
+Contributions, issues, and feature requests are welcome! Feel free to open a pull request.
 
-Check out [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+1. Fork the repo.
+2. Create a feature branch: `git checkout -b feature/your-feature`.
+3. Commit your changes: `git commit -m "feat: add new component"`.
+4. Push to the branch: `git push origin feature/your-feature`.
+5. Open a pull request.
 
-## Credit
+---
 
-This theme is based off of the lovely [Bear Blog](https://github.com/HermanMartinus/bearblog/).
+## 📄 License
+
+[MIT License](./LICENSE)
+
+---
+
+*This README was generated to help you get started with TheAstroLife—have fun building!*
