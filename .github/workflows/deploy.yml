@@ -1,5 +1,6 @@
 name: Deploy Astro to GitHub Pages
 
+# 1) Give the Actions token permission to push commits
 permissions:
   contents: write
 
@@ -11,12 +12,17 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      # 1. Checkout code
+      # 2) Checkout with persist-credentials: false so that
+      #    peaceiris/actions-gh-pages can use the GITHUB_TOKEN
       - uses: actions/checkout@v4
         with:
           persist-credentials: false
 
-      # 2. Setup Node (for runtime)
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -24,24 +30,15 @@ jobs:
           cache: 'pnpm'
           cache-dependency-path: pnpm-lock.yaml
 
-      # 3. Install the PNPM CLI
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: latest
-
-      # 4. Install project dependencies
       - name: Install dependencies
         run: pnpm install
 
-      # 5. Build your Astro site
       - name: Build site
         run: pnpm astro build
 
-      # 6. Deploy to gh-pages
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
           publish_branch: gh-pages
+          publish_dir: dist
