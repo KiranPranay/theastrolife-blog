@@ -1,6 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
+import SideBar from '../components/SideBar.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
@@ -55,16 +56,29 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 	</head>
 
 	<body>
-		<Header />
-		<main>
-			<article>
-				<div class="hero-image">
-					{heroImage && <img width={1020} height={510} src={heroImage} alt="" />}
-				</div>
-				<div class="prose">
-					<div class="title">
-						<div class="date">
-							<FormattedDate date={pubDate} />
+		<!-- partial:index.partial.html -->
+<div class="container">
+<SideBar />
+ <div class="wrapper">
+<Header />
+  <div class="main-container show">
+    <div class="stream-area">
+        <div class="blog-stream">
+
+        {heroImage && <img width={1020} height={510} src={heroImage} alt="" />}
+
+         <div class="blog-detail">
+          <div class="blog-content">
+           <div class="blog-p-wrapper anim" style="--delay: .1s">
+            <div class="author-img__wrapper blog-author blog-p">
+             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check">
+              <path d="M20 6L9 17l-5-5" />
+             </svg>
+             <img class="author-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAOhEZcotFd2yOWK1TiIUXgTt_fF3QI5H-f2Oq-Fl8SA&s" />
+            </div>
+            <div class="blog-p-detail">
+             <div class="blog-p-name">Pranay Kiran</div>
+             							<FormattedDate date={pubDate} />
 							{
 								updatedDate && (
 									<div class="last-updated-on">
@@ -72,14 +86,31 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 									</div>
 								)
 							}
-						</div>
-						<h1>{title}</h1>
-						<hr />
-					</div>
-					<slot />
-				</div>
-			</article>
-		</main>
+             <!-- <div class="blog-p-sub">1,980,893 subscribers</div> -->
+            </div>
+            <div class="button-wrapper">
+             <button class="like">
+              <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+               <path d="M21.435 2.582a1.933 1.933 0 00-1.93-.503L3.408 6.759a1.92 1.92 0 00-1.384 1.522c-.142.75.355 1.704 1.003 2.102l5.033 3.094a1.304 1.304 0 001.61-.194l5.763-5.799a.734.734 0 011.06 0c.29.292.29.765 0 1.067l-5.773 5.8c-.428.43-.508 1.1-.193 1.62l3.075 5.083c.36.604.98.946 1.66.946.08 0 .17 0 .251-.01.78-.1 1.4-.634 1.63-1.39l4.773-16.075c.21-.685.02-1.43-.48-1.943z" />
+              </svg>
+              Share
+             </button>
+
+            </div>
+           </div>
+           <div class="blog-p-title anim" style="--delay: .2s">{title}</div>
+           <div class="blog-p-subtitle anim" style="--delay: .3s">
+        <slot />    
+        </div>
+           <!-- <div class="blog-p-subtitle anim" style="--delay: .4s">Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus laborum qui dolorum fugiat eius accusantium repellendus illum tempora consequuntur. Lorem ipsum dolor, sit amet consectetur adipisicing elit.</div> -->
+          </div>
+         </div>
+        </div>
+
+       </div>
+  </div>
+ </div>
+</div>
 		<Footer />
 	</body>
 </html>
